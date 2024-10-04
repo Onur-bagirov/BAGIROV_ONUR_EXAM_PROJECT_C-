@@ -14,8 +14,9 @@ using namespace std;
 string player_one;
 string player_two;
 
+
 int control;
-char button;
+
 
 int map_one[10][10] = { 0 };
 int map_two[10][10] = { 0 };
@@ -236,7 +237,7 @@ void start_game()
 
     cout << "\n\n\n";
 
-    cout << player_one << "'s unfilled map !";
+    cout << player_one << "'s unfilled map ! ";
 
     cout << "\n\n";
     create_Map(map_one);
@@ -317,7 +318,8 @@ void start_game()
 }
 
 int main() {
-    cout << "\tWelcome to Battleship Game!\n\n";
+    cout << "\tWelcome to Battleship Game !";
+    cout << "\n\n";
     cout << "\033[32m - Start Game: Press UP button\n";
     cout << "\033[33m - Information Desk: Press LEFT button\n";
     cout << "\033[31m - Exit Game: Press DOWN button\033[0m\n";
