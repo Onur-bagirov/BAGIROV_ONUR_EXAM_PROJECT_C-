@@ -56,6 +56,21 @@ void reset_Map(int map[10][10])
     }
 }
 
+void new_map(int map[10][10])
+{
+    for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            if (map[i][j] == 0)
+                cout << "\033[33mO\033[0m" << " ";
+            else if (map[i][j] > 1)
+                cout << "\033[37mX\033[0m" << " ";
+        }
+        cout << endl;
+    }
+}
+
 void create_Map(int map[10][10])
 {
     for (int i = 0; i < 10; i++)
@@ -93,7 +108,7 @@ bool is_valid_position(int map[10][10], int ship[])
                 int ny = y + dy;
                 if (nx >= 0 && nx < 10 && ny >= 0 && ny < 10 && map[nx][ny] != 0)
                 {
-                    return false;
+                    return false; 
                 }
             }
         }
@@ -186,6 +201,7 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
                     map[i][j] = 0;
             }
         }
+
         hit_count++;
 
         cout << "\n";
@@ -288,6 +304,8 @@ void start_game()
             cout << "\n\n";
         }
     }
+
+    system("cls");
 
     while (game_run)
     {
