@@ -20,6 +20,8 @@ int control;
 
 int map_one[10][10] = { 0 };
 int map_two[10][10] = { 0 };
+int map_new_one[10][10] = { 0 };
+int map_new_two[10][10] = { 0 };
 
 int enter_y;
 int enter_x;
@@ -56,15 +58,15 @@ void reset_Map(int map[10][10])
     }
 }
 
-void new_map(int map[10][10])
+void new_map(int map_new[10][10])
 {
     for (int i = 0; i < 10; i++)
     {
         for (int j = 0; j < 10; j++)
         {
-            if (map[i][j] == 0)
+            if (map_new[i][j] == 0)
                 cout << "\033[33mO\033[0m" << " ";
-            else if (map[i][j] > 1)
+            else if (map_new[i][j] > 1)
                 cout << "\033[37mX\033[0m" << " ";
         }
         cout << endl;
@@ -207,6 +209,9 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
         cout << "\n";
         cout << "Hit ! ";
         cout << "\n\n";
+        new_map(map_new_one);
+        cout << "\n\n";
+
 
         return true;
     }
@@ -215,6 +220,7 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
         cout << "\n";
         cout << "Miss !";
         cout << "\n\n";
+        
 
         return false;
     }
