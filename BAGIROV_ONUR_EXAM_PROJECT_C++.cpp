@@ -20,8 +20,6 @@ int control;
 
 int map_one[10][10] = { 0 };
 int map_two[10][10] = { 0 };
-int map_new_one[10][10] = { 0 };
-int map_new_two[10][10] = { 0 };
 
 int enter_y;
 int enter_x;
@@ -55,21 +53,6 @@ void reset_Map(int map[10][10])
         {
             map[i][j] = 0;
         }
-    }
-}
-
-void new_map(int map_new[10][10])
-{
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++)
-        {
-            if (map_new[i][j] == 0)
-                cout << "\033[33mO\033[0m" << " ";
-            else if (map_new[i][j] > 1)
-                cout << "\033[37mX\033[0m" << " ";
-        }
-        cout << endl;
     }
 }
 
@@ -206,11 +189,12 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
 
         hit_count++;
 
-        cout << "\n";
+        cout << "\n\n";
         cout << "Hit ! ";
         cout << "\n\n";
-        new_map(map_new_one);
+        create_Map(map_two);
         cout << "\n\n";
+
 
 
         return true;
@@ -251,8 +235,10 @@ void start_game()
 {
     system("cls");
 
-    reset_Map(map_one);
-    reset_Map(map_two);
+
+    cout << "\n\n";
+    cout << "\t\t Start Game !";
+    cout << "\n\n";
 
     cout << "Please enter player one's name : ";
     cin >> player_one;
@@ -332,6 +318,9 @@ void start_game()
             start_Battleship_game(player_two, map_one, player_two_ship);
             if (check_Game(player_two_ship))
             {
+                cout << "\n\n";
+                create_Map(map_one);
+                cout << "\n\n";
                 cout << player_two << " is  winner !";
                 break;
             }
@@ -339,6 +328,8 @@ void start_game()
             player_two_turn = false;
         }
     }
+
+   
 }
 
 int main() {
