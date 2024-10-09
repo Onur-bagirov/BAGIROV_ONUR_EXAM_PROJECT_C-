@@ -266,7 +266,6 @@ void start_game()
 {
     system("cls");
 
-
     cout << "\n\n";
     cout << "\t\t Start Game !";
     cout << "\n\n";
