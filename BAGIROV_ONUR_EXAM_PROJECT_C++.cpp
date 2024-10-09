@@ -1,4 +1,4 @@
-// Onur Bagirov
+// Onur Bagirov Exam Projcet
 
 #include <conio.h>
 #include <iostream>
@@ -21,8 +21,8 @@ int control;
 int map_one[10][10] = { 0 };
 int map_two[10][10] = { 0 };
 
-int* enter_y = new int;
-int* enter_x = new int;
+int enter_y;
+int enter_x;
 
 bool player_one_turn = true;
 bool player_two_turn = false;
@@ -81,22 +81,15 @@ void create_Map(int map[10][10])
 
 bool is_valid_position(int map[10][10], int ship[])
 {
-    int* x = new int;
-    *x = ship[0];
-
-    int* y = new int;
-    *y = ship[1];
-
-    int* direction = new int;
-    *direction = ship[2];
-
-    int* size = new int;
-    *size = ship[3];
+    int x = ship[0];
+    int y = ship[1];
+    int direction = ship[2];
+    int size = ship[3];
 
 
-    for (int i = 0; i < *size; i++)
+    for (int i = 0; i < size; i++)
     {
-        if (*x < 0 || *x > 9 || *y < 0 || *y > 9 || map[*x][*y] != 0)
+        if (x < 0 || x > 9 || y < 0 || y > 9 || map[x][y] != 0)
         {
             return false;
         }
@@ -105,8 +98,8 @@ bool is_valid_position(int map[10][10], int ship[])
         {
             for (int dy = -1; dy <= 1; dy++)
             {
-                int nx = *x + dx;
-                int ny = *y + dy;
+                int nx = x + dx;
+                int ny = y + dy;
                 if (nx >= 0 && nx < 10 && ny >= 0 && ny < 10 && map[nx][ny] != 0)
                 {
                     return false; 
@@ -114,21 +107,16 @@ bool is_valid_position(int map[10][10], int ship[])
             }
         }
 
-        if (*direction == 1)
+        if (direction == 1)
         {
             y++;
         }
-        else if (*direction == 2)
+        else if (direction == 2)
         {
             x++;
         }
     }
     return true;
-
-    delete x;
-    delete y;
-    delete direction;
-    delete size;
 }
 
 void create_Ship(int map[10][10], int ship[])
@@ -159,35 +147,24 @@ void create_Ship(int map[10][10], int ship[])
 
 void ship_include_map(int map[10][10], int* ship)
 {
-    int* x = new int;
-    *x = ship[0];
+    int x = ship[0];
+    int y = ship[1];
+    int row_or_col = ship[2];
+    int size_ship = ship[3];
 
-    int *y = new int;
-    *y = ship[1];
-
-    int* row_or_col = new int;
-    *row_or_col = ship[2];
-
-    int* size_ship = new int;
-    *size_ship = ship[3];
-
-    for (int i = 0; i < *size_ship; i++)
+    for (int i = 0; i < size_ship; i++)
     {
-        map[*x][*y] = *size_ship;
-        if (*row_or_col == 1)
+        map[x][y] = size_ship;
+        if (row_or_col == 1)
         {
             y++;
         }
 
-        else if (*row_or_col == 2)
+        else if (row_or_col == 2)
         {
             x++;
         }
     }
-    delete x;
-    delete y;
-    delete row_or_col;
-    delete size_ship;
 }
 
 bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_count)
@@ -198,15 +175,15 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
 
     do {
         cout << "Enter x coordinate : ";
-        cin >> *enter_x;
-    } while (*enter_x < 0 || *enter_x > 9);
+        cin >> enter_x;
+    } while (enter_x < 0 || enter_x > 9);
 
     do {
         cout << "Enter y coordinate : ";
-        cin >> *enter_y;
-    } while (*enter_y < 0 || *enter_y > 9);
+        cin >> enter_y;
+    } while (enter_y < 0 || enter_y > 9);
 
-    int hit_ship_size = map[*enter_x][*enter_y];
+    int hit_ship_size = map[enter_x][enter_y];
 
     if (hit_ship_size > 1)
     {
@@ -231,10 +208,8 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
     }
     else
     {
-        map[*enter_x][*enter_y] = -1;
-        cout << "\nMiss!";
         cout << "\n\n";
-        create_Map(map);
+        cout << "\nMiss!";
         cout << "\n\n";
 
         return false;
@@ -358,9 +333,13 @@ void start_game()
             player_two_turn = false;
         }
     }
-
-   
 }
+
+//=======================================================
+
+// Main
+
+//=======================================================
 
 int main() {
     cout << "\tWelcome to Battleship Game !";
@@ -388,3 +367,5 @@ int main() {
         }
     }
 }
+
+//=======================================================
