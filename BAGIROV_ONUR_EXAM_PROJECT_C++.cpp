@@ -65,7 +65,7 @@ void create_Map(int map[10][10])
         {
             if (map[i][j] == 0)
             {
-                cout << "\033[33mO\033[0m" << " ";
+                cout << "\033[37mO\033[0m" << " ";
             }
             else if (map[i][j] == -1)
             {
@@ -73,7 +73,7 @@ void create_Map(int map[10][10])
             }
             else if (map[i][j] > 1)
             {
-                cout << "\033[37mX\033[0m" << " ";
+                cout << "\033[36mX\033[0m" << " ";
             }
         }
         cout << endl;
@@ -141,7 +141,8 @@ void create_Ship(int map[10][10], int ship[])
 
     while (!is_valid_position(map, ship))
     {
-        cout << "Invalid position ! Plesase try agein ! ";
+        cout << "\n\n";
+        cout << "\033[31mInvalid position ! Plesase try agein !\033[0m ";
         create_Ship(map, ship);
     }
 }
@@ -200,7 +201,7 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
         hit_count++;
 
         cout << "\n\n";
-        cout << "Hit! ";
+        cout << "\033[32mHit !\033[0m";
         cout << "\n\n";
         create_Map(map);
         cout << "\n\n";
@@ -210,7 +211,7 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
     else
     {
         cout << "\n\n";
-        cout << "\nMiss!";
+        cout << "\033[31mMISS ! Wrong cootdinate ! \033[0m";
         cout << "\n\n";
 
         return false;
@@ -312,7 +313,18 @@ void start_game()
             start_Battleship_game(player_one, map_two, player_one_ship);
             if (check_Game(player_one_ship))
             {
-                cout << player_one << " is winner !";
+                system("cls");
+
+                cout << "\t\tRseult !";
+                cout << "\n\n\n";
+                cout << player_two << "'s Map !";
+                cout << "\n\n";
+                create_Map(map_two);
+                cout << "\n\n\n";
+                cout << player_one << "\033[32m IS WINNER ! \033[0m";
+                cout << "\n";
+                cout << player_two << "\033[31m IS LOST GAME ! \033[0m";
+
                 break;
             }
             player_one_turn = false;
@@ -324,10 +336,16 @@ void start_game()
             start_Battleship_game(player_two, map_one, player_two_ship);
             if (check_Game(player_two_ship))
             {
+
+                cout << "\t\tRseult !";
+                cout << "\n\n\n";
+                cout << player_one << "'s Map !";
                 cout << "\n\n";
                 create_Map(map_one);
-                cout << "\n\n";
-                cout << player_two << " is  winner !";
+                cout << "\n\n\n";
+                cout << player_two << "\033[32m IS WINNER ! \033[0m";
+                cout << "\n";
+                cout << player_one << "\033[31m IS LOST GAME ! \033[0m";
                 break;
             }
             player_one_turn = true;
