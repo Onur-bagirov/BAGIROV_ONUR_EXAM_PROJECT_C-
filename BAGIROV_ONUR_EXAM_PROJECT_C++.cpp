@@ -21,8 +21,8 @@ int control;
 int map_one[10][10] = { 0 };
 int map_two[10][10] = { 0 };
 
-int enter_y;
-int enter_x;
+int* enter_y = new int;
+int* enter_x = new int;
 
 bool player_one_turn = true;
 bool player_two_turn = false;
@@ -63,9 +63,17 @@ void create_Map(int map[10][10])
         for (int j = 0; j < 10; j++)
         {
             if (map[i][j] == 0)
+            {
                 cout << "\033[33mO\033[0m" << " ";
+            }
+            else if (map[i][j] == -1)
+            {
+                cout << "\033[31mH\033[0m" << " ";
+            }
             else if (map[i][j] > 1)
+            {
                 cout << "\033[37mX\033[0m" << " ";
+            }
         }
         cout << endl;
     }
@@ -73,14 +81,22 @@ void create_Map(int map[10][10])
 
 bool is_valid_position(int map[10][10], int ship[])
 {
-    int x = ship[0];
-    int y = ship[1];
-    int direction = ship[2];
-    int size = ship[3];
+    int* x = new int;
+    *x = ship[0];
 
-    for (int i = 0; i < size; i++)
+    int* y = new int;
+    *y = ship[1];
+
+    int* direction = new int;
+    *direction = ship[2];
+
+    int* size = new int;
+    *size = ship[3];
+
+
+    for (int i = 0; i < *size; i++)
     {
-        if (x < 0 || x > 9 || y < 0 || y > 9 || map[x][y] != 0)
+        if (x < 0 || *x > 9 || y < 0 || *y > 9 || map[*x][*y] != 0)
         {
             return false;
         }
@@ -89,8 +105,8 @@ bool is_valid_position(int map[10][10], int ship[])
         {
             for (int dy = -1; dy <= 1; dy++)
             {
-                int nx = x + dx;
-                int ny = y + dy;
+                int nx = *x + dx;
+                int ny = *y + dy;
                 if (nx >= 0 && nx < 10 && ny >= 0 && ny < 10 && map[nx][ny] != 0)
                 {
                     return false; 
@@ -98,11 +114,11 @@ bool is_valid_position(int map[10][10], int ship[])
             }
         }
 
-        if (direction == 1)
+        if (*direction == 1)
         {
             y++;
         }
-        else if (direction == 2)
+        else if (*direction == 2)
         {
             x++;
         }
@@ -166,15 +182,15 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
 
     do {
         cout << "Enter x coordinate : ";
-        cin >> enter_x;
-    } while (enter_x < 0 || enter_x > 9);
+        cin >> *enter_x;
+    } while (*enter_x < 0 || *enter_x > 9);
 
     do {
         cout << "Enter y coordinate : ";
-        cin >> enter_y;
-    } while (enter_y < 0 || enter_y > 9);
+        cin >> *enter_y;
+    } while (enter_y < 0 || *enter_y > 9);
 
-    int hit_ship_size = map[enter_x][enter_y];
+    int hit_ship_size = map[*enter_x][*enter_y];
 
     if (hit_ship_size > 1)
     {
@@ -183,28 +199,27 @@ bool start_Battleship_game(const string& player_name, int map[10][10], int& hit_
             for (int j = 0; j < 10; j++)
             {
                 if (map[i][j] == hit_ship_size)
-                    map[i][j] = 0;
+                    map[i][j] = -1;
             }
         }
 
         hit_count++;
 
         cout << "\n\n";
-        cout << "Hit ! ";
+        cout << "Hit! ";
         cout << "\n\n";
-        create_Map(map_two);
+        create_Map(map);
         cout << "\n\n";
-
-
 
         return true;
     }
     else
     {
-        cout << "\n";
-        cout << "Miss !";
+        map[*enter_x][*enter_y] = -1;
+        cout << "\nMiss!";
         cout << "\n\n";
-        
+        create_Map(map);
+        cout << "\n\n";
 
         return false;
     }
