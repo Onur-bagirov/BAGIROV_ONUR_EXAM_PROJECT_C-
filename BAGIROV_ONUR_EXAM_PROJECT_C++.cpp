@@ -336,7 +336,7 @@ void start_game()
             start_Battleship_game(player_two, map_one, player_two_ship);
             if (check_Game(player_two_ship))
             {
-                system("cls");
+                     system("cls");
 
                 cout << "\t\tRseult !";
                 cout << "\n\n\n";
